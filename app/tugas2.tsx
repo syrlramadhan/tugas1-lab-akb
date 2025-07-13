@@ -46,10 +46,10 @@ export default function Tugas2() {
     setStates((prev) =>
       prev.map((state, i) => {
         if (i === index) {
-          const nextScale = +(Math.min(state.scale * 1.2, 2).toFixed(2));
+          const nextScale = Math.min(state.scale * 1.2, 2);
           return {
             isAlt: !state.isAlt,
-            scale: nextScale,
+            scale: +nextScale.toFixed(2),
           };
         }
         return state;
@@ -72,12 +72,7 @@ export default function Tugas2() {
             >
               <Image
                 source={states[i].isAlt ? altImages[i] : mainImages[i]}
-                style={{
-                  width: CELL_SIZE * 0.85,
-                  height: CELL_SIZE * 0.85,
-                  borderRadius: 12,
-                  resizeMode: 'cover',
-                }}
+                style={styles.image}
               />
             </Animated.View>
           </Pressable>
@@ -122,5 +117,11 @@ const styles = StyleSheet.create({
     alignItems: 'center',
     justifyContent: 'center',
     padding: 6,
+  },
+  image: {
+    width: CELL_SIZE * 0.85,
+    height: CELL_SIZE * 0.85,
+    borderRadius: 12,
+    resizeMode: 'cover',
   },
 });
