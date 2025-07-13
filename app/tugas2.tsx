@@ -41,7 +41,7 @@ export default function Tugas2() {
   ).current;
 
   useEffect(() => {
-    idleAnimations.forEach((anim, i) => {
+    idleAnimations.forEach((anim) => {
       Animated.loop(
         Animated.sequence([
           Animated.timing(anim, {
@@ -81,7 +81,16 @@ export default function Tugas2() {
             style={styles.cell}
           >
             <Animated.View
-              style={[styles.cardShadow, { transform: [{ scale: idleAnimations[i] }] }]}
+              style={[
+                styles.cardShadow,
+                {
+                  transform: [
+                    {
+                      scale: Animated.multiply(idleAnimations[i], states[i].scale),
+                    },
+                  ],
+                },
+              ]}
             >
               <Image
                 source={states[i].isAlt ? altImages[i] : mainImages[i]}
@@ -89,7 +98,6 @@ export default function Tugas2() {
                   width: CELL_SIZE * 0.85,
                   height: CELL_SIZE * 0.85,
                   borderRadius: 12,
-                  transform: [{ scale: states[i].scale }],
                   resizeMode: 'cover',
                 }}
               />
