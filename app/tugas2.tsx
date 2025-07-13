@@ -64,7 +64,7 @@ export default function Tugas2() {
       return prev.map((state, i) => {
         if (i === index) {
           const newScale = state.scale * 1.2;
-          if (newScale > 2) return state; // Stop scaling if exceeds 2x
+          if (newScale > 2) return state; // Stop jika melebihi 2x
           return { isAlt: !state.isAlt, scale: newScale };
         }
         return state;
