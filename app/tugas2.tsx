@@ -1,6 +1,13 @@
 // /app/tugas2.tsx
 import React, { useState, useRef, useEffect } from 'react';
-import { View, Pressable, StyleSheet, Dimensions, ScrollView, Animated } from 'react-native';
+import {
+  View,
+  Pressable,
+  StyleSheet,
+  Dimensions,
+  ScrollView,
+  Animated,
+} from 'react-native';
 import { Image } from 'expo-image';
 
 const { width } = Dimensions.get('window');
@@ -33,11 +40,15 @@ const altImages = [
 
 export default function Tugas2() {
   const [states, setStates] = useState(
-    Array(9).fill(0).map(() => ({ isAlt: false, scale: 1 }))
+    Array(9)
+      .fill(0)
+      .map(() => ({ isAlt: false, scale: 1 }))
   );
 
   const idleAnimations = useRef(
-    Array(9).fill(0).map(() => new Animated.Value(1))
+    Array(9)
+      .fill(0)
+      .map(() => new Animated.Value(1))
   ).current;
 
   useEffect(() => {
@@ -60,27 +71,26 @@ export default function Tugas2() {
   }, []);
 
   const handlePress = (index: number) => {
-    setStates((prev) => {
-      return prev.map((state, i) => {
+    setStates((prev) =>
+      prev.map((state, i) => {
         if (i === index) {
           const newScale = state.scale * 1.2;
-          if (newScale > 2) return state; // Stop jika melebihi 2x
-          return { isAlt: !state.isAlt, scale: newScale };
+          if (newScale > 2) return state; // Stop scaling if already at max
+          return {
+            isAlt: !state.isAlt,
+            scale: newScale,
+          };
         }
         return state;
-      });
-    });
+      })
+    );
   };
 
   return (
     <ScrollView contentContainerStyle={styles.container}>
       <View style={styles.grid}>
-        {mainImages.map((img, i) => (
-          <Pressable
-            key={i}
-            onPress={() => handlePress(i)}
-            style={styles.cell}
-          >
+        {mainImages.map((_, i) => (
+          <Pressable key={i} onPress={() => handlePress(i)} style={styles.cell}>
             <Animated.View
               style={[
                 styles.cardShadow,
