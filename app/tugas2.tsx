@@ -1,4 +1,3 @@
-// /app/tugas2.tsx
 import React, { useState, useRef, useEffect } from 'react';
 import {
   View,
@@ -40,17 +39,14 @@ const altImages = [
 
 export default function Tugas2() {
   const [states, setStates] = useState(
-    Array(9)
-      .fill(0)
-      .map(() => ({ isAlt: false, scale: 1 }))
+    Array(9).fill(0).map(() => ({ isAlt: false, scale: 1 }))
   );
 
   const idleAnimations = useRef(
-    Array(9)
-      .fill(0)
-      .map(() => new Animated.Value(1))
+    Array(9).fill(0).map(() => new Animated.Value(1))
   ).current;
 
+  // Idle animation: breathing effect
   useEffect(() => {
     idleAnimations.forEach((anim) => {
       Animated.loop(
@@ -70,15 +66,15 @@ export default function Tugas2() {
     });
   }, []);
 
+  // Handle press per gambar
   const handlePress = (index: number) => {
     setStates((prev) =>
       prev.map((state, i) => {
         if (i === index) {
-          const newScale = state.scale * 1.2;
-          if (newScale > 2) return state; // Stop scaling if already at max
+          const nextScale = +(Math.min(state.scale * 1.2, 2).toFixed(2));
           return {
             isAlt: !state.isAlt,
-            scale: newScale,
+            scale: nextScale,
           };
         }
         return state;
