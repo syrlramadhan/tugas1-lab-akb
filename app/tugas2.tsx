@@ -1,4 +1,4 @@
-import React, { useState, useRef, useEffect } from 'react';
+import React, { useState } from 'react';
 import {
   View,
   Pressable,
@@ -42,31 +42,6 @@ export default function Tugas2() {
     Array(9).fill(0).map(() => ({ isAlt: false, scale: 1 }))
   );
 
-  const idleAnimations = useRef(
-    Array(9).fill(0).map(() => new Animated.Value(1))
-  ).current;
-
-  // Idle animation: breathing effect
-  useEffect(() => {
-    idleAnimations.forEach((anim) => {
-      Animated.loop(
-        Animated.sequence([
-          Animated.timing(anim, {
-            toValue: 1.05,
-            duration: 2000,
-            useNativeDriver: true,
-          }),
-          Animated.timing(anim, {
-            toValue: 1,
-            duration: 2000,
-            useNativeDriver: true,
-          }),
-        ])
-      ).start();
-    });
-  }, []);
-
-  // Handle press per gambar
   const handlePress = (index: number) => {
     setStates((prev) =>
       prev.map((state, i) => {
@@ -91,11 +66,7 @@ export default function Tugas2() {
               style={[
                 styles.cardShadow,
                 {
-                  transform: [
-                    {
-                      scale: Animated.multiply(idleAnimations[i], states[i].scale),
-                    },
-                  ],
+                  transform: [{ scale: states[i].scale }],
                 },
               ]}
             >
