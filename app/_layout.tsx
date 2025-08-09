@@ -2,6 +2,8 @@ import { Stack } from "expo-router";
 import { useFonts } from "expo-font";
 import * as SplashScreen from "expo-splash-screen";
 import { useEffect } from "react";
+import { TouchableOpacity, View } from "react-native";
+import { AntDesign } from '@expo/vector-icons';
 
 SplashScreen.preventAutoHideAsync();
 
@@ -25,5 +27,24 @@ export default function RootLayout() {
 
   if (!loaded && !error) return null;
 
-  return <Stack />;
+  return <Stack>
+    <Stack.Screen name="(tabs)" options={{
+      headerShown: false
+    }}/>
+  </Stack>;
+
+  // return <Stack screenOptions={{
+  //   header: ({ navigation, back }) => <View style={{
+  //     backgroundColor: "white",
+  //     borderBottomColor: "black",
+  //     borderBottomWidth: 1,
+  //     padding: 10
+  //   }}>
+  //     <TouchableOpacity onPress={() => {
+  //       navigation.navigate("index")
+  //     }}>
+  //       <AntDesign name="home" size={40}></AntDesign>
+  //     </TouchableOpacity>
+  //   </View>
+  // }}/>;
 }
